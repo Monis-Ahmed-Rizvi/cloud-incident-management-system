@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>AWS Resources</h1>
+<a href="{{ url_for('aws_resources.update_aws_resources_view') }}" class="btn btn-primary">Update Resources</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Resource ID</th>
+            <th>Resource Type</th>
+            <th>Region</th>
+            <th>Status</th>
+            <th>Last Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for resource in resources %}
+        <tr>
+            <td>{{ resource.id }}</td>
+            <td>{{ resource.resource_id }}</td>
+            <td>{{ resource.resource_type }}</td>
+            <td>{{ resource.region }}</td>
+            <td>{{ resource.status }}</td>
+            <td>{{ resource.last_updated.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

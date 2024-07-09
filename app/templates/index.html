@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to the AWS Incident Management System</h1>
+    <p class="lead">This is a simple incident management system that integrates with AWS services.</p>
+    <hr class="my-4">
+    <p>Use the navigation bar to report and view incidents.</p>
+    {% if current_user.is_authenticated and current_user.has_role('admin') %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('admin.admin_dashboard') }}" role="button">Go to Admin Dashboard</a>
+    {% endif %}
+</div>
+{% endblock %}

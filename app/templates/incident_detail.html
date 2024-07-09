@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Incident Details</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ incident.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Reported on {{ incident.date_reported.strftime('%Y-%m-%d %H:%M:%S') }}</h6>
+        <p class="card-text"><strong>Description:</strong> {{ incident.description }}</p>
+        <p class="card-text"><strong>Severity:</strong> {{ incident.severity }}</p>
+        <p class="card-text"><strong>Status:</strong> {{ incident.status }}</p>
+        <p class="card-text"><strong>AWS Service:</strong> {{ incident.aws_service }}</p>
+        <a href="{{ url_for('incidents.list_incidents') }}" class="btn btn-primary">Back to Incident List</a>
+    </div>
+</div>
+{% endblock %}

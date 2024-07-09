@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Chat with Support</h1>
+<form action="{{ url_for('chat.chat') }}" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.message.label }}<br>
+        {{ form.message(size=32) }}<br>
+        {% for error in form.message.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+<ul>
+    {% for chat in chat_logs %}
+        <li><strong>{{ chat.user.username }}</strong>: {{ chat.message }} <br> <em>{{ chat.response }}</em></li>
+    {% endfor %}
+</ul>
+{% endblock %}

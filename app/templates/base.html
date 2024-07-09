@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>{% block title %}AWS Incident Management System{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">IMS</a>
+        <div class="navbar-nav">
+            {% if current_user.is_anonymous %}
+            <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{{ url_for('incidents.report_incident') }}">Report Incident</a>
+            <a class="nav-item nav-link" href="{{ url_for('incidents.list_incidents') }}">View Incidents</a>
+            <a class="nav-item nav-link" href="{{ url_for('aws_resources.list_aws_resources') }}">AWS Resources</a>
+            {% if current_user.has_role('admin') %}
+            <a class="nav-item nav-link" href="{{ url_for('admin.admin_dashboard') }}">Admin Dashboard</a>
+            {% endif %}
+            <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="row">
+            <div class="col-md-12">
+                {% for message in messages %}
+                <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

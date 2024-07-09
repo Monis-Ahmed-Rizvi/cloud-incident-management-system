@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Incident List</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Date Reported</th>
+            <th>Severity</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for incident in incidents %}
+        <tr>
+            <td>{{ incident.id }}</td>
+            <td>{{ incident.title }}</td>
+            <td>{{ incident.date_reported.strftime('%Y-%m-%d %H:%M:%S') if incident.date_reported else 'N/A' }}</td>
+            <td>{{ incident.severity }}</td>
+            <td>{{ incident.status }}</td>
+            <td>
+                <a href="{{ url_for('incidents.incident_detail', id=incident.id) }}" class="btn btn-sm btn-info">View</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
